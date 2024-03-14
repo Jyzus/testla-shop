@@ -4,6 +4,7 @@ import { titleFont } from "@/config/fonts";
 import { useUiStore } from "@/store";
 import Link from "next/link";
 import { IoCartOutline, IoSearchOutline } from "react-icons/io5";
+import NavLink from "./NavLink";
 
 const TopMenu = () => {
   const openSideMenu = useUiStore((state) => state.openSideMenu);
@@ -21,24 +22,10 @@ const TopMenu = () => {
 
       {/* Center Menu */}
       <div className="hidden sm:block font-medium">
-        <Link
-          className="m-2 p-2 rounded-md transition-all hover_bg-gray-100"
-          href={"/category/men"}
-        >
-          Hombres
-        </Link>
-        <Link
-          className="m-2 p-2 rounded-md transition-all hover_bg-gray-100"
-          href={"/category/women"}
-        >
-          Mujeres
-        </Link>
-        <Link
-          className="m-2 p-2 rounded-md transition-all hover_bg-gray-100"
-          href={"/category/kids"}
-        >
-          Niños
-        </Link>
+        <NavLink href="/category/men" title="Hombres" />
+        <NavLink href="/category/women" title="Mujeres" />
+        <NavLink href="/category/kid" title="Niños" />
+        <NavLink href="/category/unisex" title="Unisex" />
       </div>
 
       {/* Search card menu */}

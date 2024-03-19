@@ -1,7 +1,8 @@
+import { redirect } from "next/navigation";
 import React from "react";
 
 const page = () => {
-  return <div>products plural page</div>;
+  redirect("/");
 };
 
 export default page;

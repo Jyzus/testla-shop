@@ -1,5 +1,4 @@
 export interface Product {
-  //   id: string;
   description: string;
   images: string[];
   inStock: number;
@@ -15,3 +14,8 @@ export interface Product {
 export type ValidSizes = "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL";
 export type ValidTypes = "shirts" | "pants" | "hoodies" | "hats";
 export type ValidGenders = "men" | "women" | "kid" | "unisex";
+
+export interface ProductSelected extends Omit<Product, "sizes"> {
+  sizes: ValidSizes;
+  amount: number;
+}

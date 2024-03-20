@@ -1,8 +1,6 @@
 import { ValidSizes } from "@/interfaces";
 import clsx from "clsx";
-import React from "react";
 import { ReturnSizeSelector } from "./useSizeSelector";
-import { FieldValues, UseFormRegister } from "react-hook-form";
 
 interface Props {
   useSizeSelector: ReturnSizeSelector;

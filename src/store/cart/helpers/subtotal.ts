@@ -5,5 +5,5 @@ export const subtotal = (products: ProductSelected[]) => {
   for (let product of products) {
     amount = amount + product.price * product.amount;
   }
-  return amount * 0.75;
+  return amount * 0.85;
 };

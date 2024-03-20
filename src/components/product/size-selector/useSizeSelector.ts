@@ -6,8 +6,10 @@ export type ReturnSizeSelector = {
   onSizeChanged: (size: ValidSizes) => void;
 };
 
-const useSizeSelector = (size: ValidSizes = "S"): ReturnSizeSelector => {
-  const [sizes, setSizes] = useState<ValidSizes>(size);
+const useSizeSelector = (size: ValidSizes | undefined): ReturnSizeSelector => {
+  const [sizes, setSizes] = useState<ValidSizes>(
+    size !== undefined ? size : "S"
+  );
 
   const onSizeChanged = (value: ValidSizes) => {
     setSizes(value);

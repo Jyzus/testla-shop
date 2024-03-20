@@ -23,11 +23,11 @@ interface Props {
 
 const Page = ({ params }: Props) => {
   const addProduct = useCarStore((state) => state.addProduct);
-  const sizeSelector = useSizeSelector();
   const quantitySelector = useQuantitySelector();
 
   const { slug } = params;
   const product = initialData.products.find((prod) => prod.slug === slug);
+  const sizeSelector = useSizeSelector(product?.sizes[0]);
 
   const onSubmit = () => {
     if (product) {

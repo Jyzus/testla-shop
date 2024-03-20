@@ -14,7 +14,11 @@ import { IoTrashBinOutline } from "react-icons/io5";
 const Page = () => {
   const cart = useCarStore((state) => state.cart);
   const addAmount = useCarStore((state) => state.addAmount);
-  console.log(cart);
+  const quantityProducts = useCarStore((state) => state.quantityProducts());
+  const subtotal = useCarStore((state) => state.subtotal());
+  const total = useCarStore((state) => state.total());
+  const taxes = useCarStore((state) => state.taxes());
+  const removeProduct = useCarStore((state) => state.removeProduct);
 
   if (cart.length == 0) {
     redirect("/empty");
@@ -55,7 +59,10 @@ const Page = () => {
                     productSlug={product.slug}
                   />
                 </div>
-                <button className=" text-gray-500 hover:text-gray-800 duration-200">
+                <button
+                  className=" text-gray-500 hover:text-gray-800 duration-200"
+                  onClick={() => removeProduct(product)}
+                >
                   <IoTrashBinOutline size={20} />
                 </button>
               </div>
@@ -67,13 +74,13 @@ const Page = () => {
             <h2 className="text-2xl mb-2">Resumen de orden</h2>
             <div className="grid grid-cols-2">
               <span className="font-semibold">N° Productos</span>
-              <span className="text-right">3 artículos</span>
+              <span className="text-right">{quantityProducts} artículos</span>
               <span className="font-semibold">Subtotal</span>
-              <span className="text-right">$100</span>
+              <span className="text-right">${subtotal}</span>
               <span className="font-semibold">Impuestos (15%)</span>
-              <span className="text-right">$100</span>
+              <span className="text-right">${taxes}</span>
               <span className="font-semibold">Total: </span>
-              <span className="text-right">$100</span>
+              <span className="text-right">${total}</span>
             </div>
             <div className="mb-2 w-full mt-24">
               <ButtonLink href="/checkout/address" title="Checkout" />

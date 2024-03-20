@@ -1,28 +1,31 @@
 import { create } from "zustand";
 import { CartState } from "./cartState";
+import { subtotal } from "./helpers/subtotal";
+import { ProductSelected } from "@/interfaces";
+import { taxes } from "./helpers/taxes";
 
 export const useCarStore = create<CartState>((set, get) => ({
   cart: [],
   addProduct: (product) => {
-    if (get().cart.length >= 1) {
-      const findProduct = get().cart.find(
-        (oldProduct) => oldProduct.slug == product.slug
-      );
-      if (findProduct) {
-        findProduct.amount += 1;
-        set(() => ({
-          cart: [...get().cart, ...[findProduct]],
-        }));
-      } else {
-      }
+    const findProduct = get().cart.find(
+      (products) => products.slug == product.slug
+    );
+    if (findProduct == undefined) {
+      set(() => ({
+        cart: [...get().cart, product],
+      }));
     } else {
       set(() => ({
-        cart: [product],
+        cart: get().cart.map((oldProducts) => {
+          if (oldProducts.slug == product.slug) {
+            oldProducts.amount += product.amount;
+          }
+          return oldProducts;
+        }),
       }));
     }
   },
   addAmount: (productSlug, amount) => {
-    console.log(amount);
     set((state) => {
       const newProducts = state.cart.map((product) => {
         if (product.slug == productSlug && product.amount > 1) {
@@ -35,4 +38,13 @@ export const useCarStore = create<CartState>((set, get) => ({
       };
     });
   },
+  removeProduct: (product) => {
+    set(() => ({
+      cart: get().cart.filter((products) => products.slug !== product.slug),
+    }));
+  },
+  quantityProducts: () => get().cart.length,
+  subtotal: () => subtotal(get().cart),
+  taxes: () => taxes(get().cart),
+  total: () => subtotal(get().cart) + taxes(get().cart),
 }));

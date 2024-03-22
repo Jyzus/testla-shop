@@ -1,16 +1,12 @@
-import ButtonLink from "@/components/ui/button/ButtonLink";
+"use client";
+
 import Title from "@/components/ui/title/Title";
 import { initialData } from "@/seed/seed";
+import { useAddressStore } from "@/store/address/addressStore";
+import { useCarStore } from "@/store/cart/cartStore";
 import clsx from "clsx";
 import Image from "next/image";
-import Link from "next/link";
 import { IoCartOutline } from "react-icons/io5";
-
-const productsInCart = [
-  initialData.products[0],
-  initialData.products[1],
-  initialData.products[2],
-];
 
 interface Props {
   params: {
@@ -18,8 +14,18 @@ interface Props {
   };
 }
 
-const page = ({ params }: Props) => {
+const Page = ({ params }: Props) => {
   const { id } = params;
+  const cart = useCarStore((state) => state.cart);
+  const quantityProducts = useCarStore((state) => state.quantityProducts());
+  const subtotal = useCarStore((state) => state.subtotal());
+  const total = useCarStore((state) => state.total());
+  const taxes = useCarStore((state) => state.taxes());
+  const names = useAddressStore((state) => state.names);
+  const lastnames = useAddressStore((state) => state.lastnames);
+  const address = useAddressStore((state) => state.address);
+  const city = useAddressStore((state) => state.city);
+  const country = useAddressStore((state) => state.country);
 
   // TODO: Verificar si corresponde al usuario
   return (
@@ -46,7 +52,7 @@ const page = ({ params }: Props) => {
             </div>
 
             {/* Items */}
-            {productsInCart.map((product) => (
+            {cart.map((product) => (
               <div key={product.slug} className="flex w-full mb-5">
                 <Image
                   src={`/products/${product.images[0]}`}
@@ -63,7 +69,7 @@ const page = ({ params }: Props) => {
                   <p className="font-semibold">{product.title}</p>
                   <p>${product.price}</p>
                   <p className="font-semibold text-sm">
-                    Subtotal: <span>${product.price * 3}</span>
+                    Subtotal: <span>${product.price * product.amount}</span>
                   </p>
                 </div>
               </div>
@@ -74,9 +80,13 @@ const page = ({ params }: Props) => {
           <div className="bg-white rounded-xl shadow-xl p-7 h-fit">
             <h2 className="text-2xl mb-2">Dirección de entrega</h2>
             <div className="mb-10 font-medium">
-              <p>Julian Agama</p>
-              <p>Av. 200 millas</p>
-              <p>Hospital de emergencia</p>
+              <p>
+                {names} {lastnames}
+              </p>
+              <p>
+                {address} | {city}
+              </p>
+              <p>{country}</p>
             </div>
 
             <hr className="mb-10" />
@@ -84,13 +94,13 @@ const page = ({ params }: Props) => {
             <h2 className="text-2xl mb-2">Resumen de orden</h2>
             <div className="grid grid-cols-2">
               <span className="font-semibold">N° Productos</span>
-              <span className="text-right">3 artículos</span>
+              <span className="text-right">{quantityProducts} artículos</span>
               <span className="font-semibold">Subtotal</span>
-              <span className="text-right">$100</span>
+              <span className="text-right">${subtotal}</span>
               <span className="font-semibold">Impuestos (15%)</span>
-              <span className="text-right">$100</span>
+              <span className="text-right">${taxes}</span>
               <span className="font-semibold">Total: </span>
-              <span className="text-right">$100</span>
+              <span className="text-right">${total}</span>
             </div>
             <div
               className={clsx(
@@ -113,4 +123,4 @@ const page = ({ params }: Props) => {
   );
 };
 
-export default page;
+export default Page;

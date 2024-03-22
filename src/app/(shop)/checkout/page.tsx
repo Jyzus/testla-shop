@@ -1,16 +1,13 @@
+"use client";
+
 import ButtonLink from "@/components/ui/button/ButtonLink";
 import Title from "@/components/ui/title/Title";
-import { initialData } from "@/seed/seed";
+import { useCarStore } from "@/store/cart/cartStore";
 import Image from "next/image";
 import Link from "next/link";
 
-const productsInCart = [
-  initialData.products[0],
-  initialData.products[1],
-  initialData.products[2],
-];
-
-const page = () => {
+const Page = () => {
+  const cart = useCarStore((state) => state.cart);
   return (
     <div className="flex justify-center items-center mb-72 sm:px-10">
       <div className="flex flex-col w-[1000px]">
@@ -24,7 +21,7 @@ const page = () => {
             </Link>
 
             {/* Items */}
-            {productsInCart.map((product) => (
+            {cart.map((product) => (
               <div key={product.slug} className="flex w-full mb-5">
                 <Image
                   src={`/products/${product.images[0]}`}
@@ -88,4 +85,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

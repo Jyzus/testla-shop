@@ -1,8 +1,6 @@
 "use client";
 
-import QuantitySelector from "@/components/product/quantity-selector/QuantitySelector";
 import QuantityVisible from "@/components/product/quantity-selector/QuantityVisible";
-import useQuantitySelector from "@/components/product/quantity-selector/useQuantitySelector";
 import ButtonLink from "@/components/ui/button/ButtonLink";
 import Title from "@/components/ui/title/Title";
 import { useCarStore } from "@/store/cart/cartStore";

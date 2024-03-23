@@ -4,6 +4,7 @@ import { useUiStore } from "@/store";
 import clsx from "clsx";
 import {
   IoCloseOutline,
+  IoHomeOutline,
   IoLogInOutline,
   IoPeopleOutline,
   IoPersonOutline,
@@ -48,7 +49,7 @@ const Sidebar = () => {
         />
 
         {/* Input */}
-        <div className="relative mt-14">
+        {/* <div className="relative mt-14">
           <IoSearchOutline size={20} className="absolute top-4 left-2" />
           <input
             type="text"
@@ -57,19 +58,29 @@ const Sidebar = () => {
             className="w-full bg-gray-50 rounded px-10 py-3 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-blue-500"
             id=""
           />
-        </div>
+        </div> */}
 
         {/* ´Menú */}
-        <NavLink href="/" title="Perfil" icon={<IoPersonOutline />} />
-        <NavLink href="/" title="Ordenes" icon={<IoTicketOutline />} />
-        <NavLink href="/" title="Ingresar" icon={<IoLogInOutline />} />
+        <NavLink href="/" title="Inicio" icon={<IoHomeOutline />} />
+        <NavLink href="/" title="Perfil" icon={<IoPersonOutline />} disabled />
+        <NavLink href="/" title="Ingresar" icon={<IoLogInOutline />} disabled />
 
         {/* Separator */}
         <hr className="my-10" />
 
-        <NavLink href="/" title="Productos" icon={<IoShirtOutline />} />
-        <NavLink href="/" title="Ordenes" icon={<IoTicketOutline />} />
-        <NavLink href="/" title="Usuarios" icon={<IoPeopleOutline />} />
+        <NavLink
+          href="/"
+          title="Productos"
+          icon={<IoShirtOutline />}
+          disabled
+        />
+        <NavLink href="/" title="Ordenes" icon={<IoTicketOutline />} disabled />
+        <NavLink
+          href="/"
+          title="Usuarios"
+          icon={<IoPeopleOutline />}
+          disabled
+        />
       </nav>
     </div>
   );
